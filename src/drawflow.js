@@ -1201,6 +1201,8 @@ export default class Drawflow {
       const input = document.createElement('div');
       input.classList.add("input");
       input.classList.add("input_"+(x+1));
+      input.innerHTML = 'in'
+      console.log('input', input)
       json_inputs["input_"+(x+1)] = { "connections": []};
       inputs.appendChild(input);
     }
@@ -1210,6 +1212,8 @@ export default class Drawflow {
       const output = document.createElement('div');
       output.classList.add("output");
       output.classList.add("output_"+(x+1));
+      output.innerHTML = 'out'
+      console.log('outout', output)
       json_outputs["output_"+(x+1)] = { "connections": []};
       outputs.appendChild(output);
     }
@@ -1530,7 +1534,7 @@ export default class Drawflow {
     }
   }
 
-  addNodeInput(id) {
+  addNodeInput(id, html='') {
     var moduleName = this.getModuleFromNodeId(id)
     const infoNode = this.getNodeFromId(id)
     const numInputs = Object.keys(infoNode.inputs).length;
@@ -1539,6 +1543,7 @@ export default class Drawflow {
       const input = document.createElement('div');
       input.classList.add("input");
       input.classList.add("input_"+(numInputs+1));
+      input.innerHTML = html
       const parent = this.container.querySelector('#node-'+id+' .inputs');
       parent.appendChild(input);
       this.updateConnectionNodes('node-'+id);
@@ -1547,7 +1552,7 @@ export default class Drawflow {
     this.drawflow.drawflow[moduleName].data[id].inputs["input_"+(numInputs+1)] = { "connections": []};
   }
 
-  addNodeOutput(id) {
+  addNodeOutput(id, html='') {
     var moduleName = this.getModuleFromNodeId(id)
     const infoNode = this.getNodeFromId(id)
     const numOutputs = Object.keys(infoNode.outputs).length;
@@ -1556,6 +1561,7 @@ export default class Drawflow {
       const output = document.createElement('div');
       output.classList.add("output");
       output.classList.add("output_"+(numOutputs+1));
+      output.innerHTML = html
       const parent = this.container.querySelector('#node-'+id+' .outputs');
       parent.appendChild(output);
       this.updateConnectionNodes('node-'+id);
